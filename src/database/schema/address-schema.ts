@@ -6,7 +6,7 @@ const addressSchema = new Schema<IAddress>({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 50,
+    maxlength: 256,
   },
 
   state: {
@@ -14,35 +14,36 @@ const addressSchema = new Schema<IAddress>({
     required: false,
     default: "",
     minlength: 0,
-    maxlength: 50,
+    maxlength: 256,
   },
 
   country: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 50,
+    maxlength: 256,
   },
 
   street: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 100,
+    maxlength: 256,
   },
 
   zip: {
     type: String,
     required: false,
     default: "0",
-    maxlength: 30,
+    minlength: 2,
+    maxlength: 256,
   },
 
   houseNumber: {
     type: Number,
     required: true,
-    min: 0,
-    max: 999999,
+    min: 2,
+    max: 256,
   },
 });
 

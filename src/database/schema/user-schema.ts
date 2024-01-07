@@ -50,6 +50,8 @@ const userSchema = new Schema<IUser>({
     required: false,
     default: new Date(),
   },
+  failedLoginAttempts: { type: Number, default: 0, required: false },
+  lastFailedLogin: { type: Date, required: false },
 });
 
 export { userSchema };

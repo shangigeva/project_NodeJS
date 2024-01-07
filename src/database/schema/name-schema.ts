@@ -7,20 +7,20 @@ const nameSchema = new Schema<IName>({
     required: true,
     type: String,
     minlength: 2,
-    maxlength: 20,
+    maxlength: 256,
   },
   middle: {
     type: String,
     required: false,
     default: "",
-    minlength: 0,
-    maxlength: 20,
+    minlength: 2,
+    maxlength: 256,
   },
   last: {
     required: true,
     type: String,
     minlength: 2,
-    maxlength: 20,
+    maxlength: 256,
   },
 });
 

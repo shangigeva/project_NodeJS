@@ -28,7 +28,9 @@ type IUser = {
   isBusiness: boolean;
   isAdmin?: boolean;
   createdAt?: Date;
-  _id: string;
+  _id?: string;
+  failedLoginAttempts: number;
+  lastFailedLogin: Date;
 };
 
 type ILogin = {

@@ -1,7 +1,6 @@
   ### GET All users:
 GET http://localhost:8080/api/v1/users
 
-
 ### Add a user:
 POST http://localhost:8080/api/v1/users
 Content-Type: application/json
@@ -9,6 +8,7 @@ Content-Type: application/json
 {
   "name": {
     "first": "root",
+    "middle":"sfd",
     "last": "admin"
   },
   "address": {
@@ -19,11 +19,11 @@ Content-Type: application/json
     "zip": "12345"
   },
   "image": {
-    "alt": "user-profile",
+    "alt": "usdfdfdfer-profile",
     "url": "https://picsum.photos/200/300"
   },
   "phone": "050-8123091",
-  "email": "admin@gmail.com",
+  "email": "adman@gmail.com",
   "isBusiness": true,
   "password": "123456aA!" 
 }
@@ -34,10 +34,9 @@ POST http://localhost:8080/api/v1/users/login
 Content-Type: application/json
 
 {
-  "email": "Wayne@batcave.com",
+  "email": "admian@gmail.com",
   "password": "123456aA!"
 }
-
 
 ### get Wayne by id with JWT of Willis:
 GET http://localhost:8080/api/v1/users/65784e0a927be706a0d28789

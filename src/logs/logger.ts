@@ -9,6 +9,9 @@ class Logger {
     if (process.env.NODE_ENV === "prod") return;
     console.error(chalk.yellow(messages));
   }
+  static success(...messages: any[]) {
+    console.error(chalk.green(messages));
+  }
 
   static debug(...messages: any[]) {
     console.debug(chalk.blue(messages));
@@ -21,7 +24,6 @@ class Logger {
 
   static log(...messages: any[]) {
     if (process.env.NODE_ENV === "prod") return;
-    console.log(messages);
   }
 }
 

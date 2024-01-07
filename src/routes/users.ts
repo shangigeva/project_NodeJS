@@ -57,14 +57,39 @@ router.post("/", validateRegistration, async (req, res, next) => {
 // LOGIN
 router.post("/login", validateLogin, async (req, res, next) => {
   try {
-    //check the request:
+    // Extract data from the request
     const { email, password } = req.body as ILogin;
-    //call the service:
-    const jwt = await validateUser(email, password);
-    //response
-    res.json(jwt);
-  } catch (e) {
-    next(e);
+    try {
+      // Validate the user and handle failed login attempts
+      const jwt = await validateUser(email, password);
+      // Successful login
+      res.json(jwt);
+    } catch (e) {
+      // Failed login
+      Logger.error("Login failed:", e);
+      // Check if the user is blocked
+      if (e === "User is blocked. Try again later.") {
+        // Send a response indicating that the user is blocked
+        return res
+          .status(401)
+          .json({ error: "User is blocked. Try again later." });
+      } else {
+        // Send a generic error response
+        res.status(401).json({ error: "Invalid email or password." });
+        const userId = req.user?._id;
+        if (userId) {
+          try {
+            // Handle failed login attempts for the user
+            await auth.handleFailedLogin(userId);
+          } catch (error) {
+            console.error("Failed to handle login:", error);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    // Handle other errors
+    next(error);
   }
 });
 // UPGRADE TO BUSINESS
@@ -72,8 +97,6 @@ router.patch("/:id", isAdminOrUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const { isBusiness } = req.body;
-
-    // Validate if isBusiness is a boolean (you can customize this validation)
     if (typeof isBusiness !== "boolean") {
       return res.status(400).json({ message: "Invalid isBusiness value" });
     }
@@ -105,8 +128,3 @@ router.delete("/:id", isAdminOrUser, async (req, res, next) => {
   }
 });
 export { router as usersRouter };
-
-//Database:
-//connect, mongo-schema, model
-//Router:
-//validate body (joi-schema), other route logic
